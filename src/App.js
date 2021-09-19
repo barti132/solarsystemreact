@@ -6,7 +6,6 @@ import {Canvas} from "@react-three/fiber";
 import {OrbitControls, Stars} from "@react-three/drei";
 import {Planet, Saturn} from "./Planet";
 
-
 function Lights() {
     return (
         <>
@@ -23,7 +22,7 @@ function Planets() {
             <Planet position={[10.7909, 0, 0]} size={0.19125} rotationSpeed={0.0029} speed={0.4} zRadius={8} texture={'2k_mercury.jpg'}
                     name={'Mercury'}/>
             <Planet position={[15.8208, 0, 0]} size={0.47445} rotationSpeed={-0.00006} speed={0.25} zRadius={13}
-                    texture={'2k_venus_atmosphere.jpg'} name={'Venus'}/>
+                    texture={'2k_venus_atmosphere.jpg'} name={'Venus'} />
             <Planet position={[19.9597, 0, 0]} size={0.5} rotationSpeed={0.17} speed={0.1} zRadius={17} texture={'2k_earth_daymap.jpg'}
                     name={'Earth'}/>
             <Planet position={[27.7936, 0, 0]} size={0.26675} rotationSpeed={0.18} speed={0.05} zRadius={25} texture={'2k_mars.jpg'}
@@ -41,6 +40,7 @@ function Planets() {
 }
 
 export default function App() {
+
     return (
         <div id="root">
             <Canvas camera={{fov: 75, position: [0, 0, 40]}}>
