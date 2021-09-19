@@ -16,6 +16,7 @@ export function Planet(props) {
         const z = props.zRadius * Math.cos(time)
         ref.current.position.x = x
         ref.current.position.z = z
+        ref.current.rotation.y += props.rotationSpeed;
     })
 
     return (
@@ -81,6 +82,7 @@ export function Saturn(props) {
         const z = props.zRadius * Math.cos(time)
         ref.current.position.x = x
         ref.current.position.z = z
+        ref.current.rotation.y += props.rotationSpeed;
     })
 
     return (
@@ -129,7 +131,6 @@ export function Saturn(props) {
                 <sphereGeometry args={[props.size, 32, 32]}/>
                 <meshStandardMaterial map={texture}/>
                 <SaturnRing position={[props.position[0], 0, props.position[2]]} texture={ringTexture}/>
-
             </mesh>
             <Ellipse xRadius={props.position[0]} zRadius={props.zRadius}/>
 
