@@ -1,14 +1,15 @@
 import {useFrame, useLoader} from "@react-three/fiber";
 import * as THREE from "three";
 import {TextureLoader} from "three";
-import React, {useRef} from "react";
+import React, {useRef, useState} from "react";
 import {Html} from "@react-three/drei";
-import {Info} from "./Info";
 import ReactDOM from "react-dom";
+import axios from "axios";
 
 export function Planet(props) {
     const texture = useLoader(TextureLoader, props.texture)
     const ref = useRef()
+    const [data, setData] = useState("")
 
     useFrame(({clock}) => {
         const time = clock.getElapsedTime() * props.speed
@@ -24,8 +25,27 @@ export function Planet(props) {
             <mesh
                 {...props}
                 ref={ref}
-                onClick={() => {
-                    const element = Info(props.name)
+                onClick={async () => {
+                    axios.get("http://localhost:8080/api/v1/planet/getByName/" + props.name)
+                        .then((response) => setData(response.data));
+
+                    const element =
+                        (<div id="text">
+                            <h1>{data.name} <svg
+                                onClick={(event => {
+                                    ReactDOM.render(<div></div>, document.getElementById("planetInfo"))
+                                })}
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <line x1="10" y1="10" x2="50" y2="50" stroke="red" strokeWidth="6"/>
+                                <line x1="50" y1="10" x2="10" y2="50" stroke="red" strokeWidth="6"/>
+                            </svg></h1>
+                            <h2>Mass: {data.mass}</h2>
+                            <h2>Distance from the Sun: {data.distanceFromSun}</h2>
+                            <h2>Info:</h2>
+                            {data.description}
+                        </div>);
+
                     ReactDOM.render(element, document.getElementById("planetInfo"))
                 }}
             >
@@ -44,6 +64,7 @@ export function Saturn(props) {
     const texture = useLoader(TextureLoader, props.texture)
     const ringTexture = useLoader(TextureLoader, "2k_saturn_ring_alpha.png")
     const ref = useRef()
+    const [data, setData] = useState("")
 
     useFrame(({clock}) => {
         const time = clock.getElapsedTime() * props.speed
@@ -60,7 +81,26 @@ export function Saturn(props) {
                 {...props}
                 ref={ref}
                 onClick={() => {
-                    const element = Info(props.name)
+                    axios.get("http://localhost:8080/api/v1/planet/getByName/" + props.name)
+                        .then((response) => setData(response.data));
+
+                    const element =
+                        (<div id="text">
+                            <h1>{data.name} <svg
+                                onClick={(event => {
+                                    ReactDOM.render(<div></div>, document.getElementById("planetInfo"))
+                                })}
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <line x1="10" y1="10" x2="50" y2="50" stroke="red" strokeWidth="6"/>
+                                <line x1="50" y1="10" x2="10" y2="50" stroke="red" strokeWidth="6"/>
+                            </svg></h1>
+                            <h2>Mass: {data.mass}</h2>
+                            <h2>Distance from the Sun: {data.distanceFromSun}</h2>
+                            <h2>Info:</h2>
+                            {data.description}
+                        </div>);
+
                     ReactDOM.render(element, document.getElementById("planetInfo"))
                 }}
             >
