@@ -1,34 +1,18 @@
 import {useFrame, useLoader} from "@react-three/fiber";
 import * as THREE from "three";
 import {TextureLoader} from "three";
-import React, {useRef, useState} from "react";
+import React, {useRef} from "react";
 import {Html} from "@react-three/drei";
 import ReactDOM from "react-dom";
-import axios from "axios";
+import {InfoBox} from "./InfoBox";
 
-function getInfoBox(data) {
-    return (<div id="text">
-        <h1>{data.name} <svg
-            onClick={(event => {
-                ReactDOM.render(<div></div>, document.getElementById("planetInfo"))
-            })}
-            xmlns="http://www.w3.org/2000/svg"
-        >
-            <line x1="10" y1="10" x2="50" y2="50" stroke="red" strokeWidth="6"/>
-            <line x1="50" y1="10" x2="10" y2="50" stroke="red" strokeWidth="6"/>
-        </svg></h1>
-        <h2>Mass: {data.mass}</h2>
-        <h2>Distance from the Sun: {data.distanceFromSun}</h2>
-        <h2>Info:</h2>
-        {data.description}
-    </div>);
-}
+
 
 export function Planet({position, size, rotationSpeed, speed, zRadius, textureName, name}) {
-    console.log(textureName)
+
     const texture = useLoader(TextureLoader, textureName)
     const ref = useRef()
-    const [data, setData] = useState("")
+
 
     useFrame(({clock}) => {
         const time = clock.getElapsedTime() * speed
@@ -44,10 +28,7 @@ export function Planet({position, size, rotationSpeed, speed, zRadius, textureNa
             <mesh
                 ref={ref}
                 onClick={async () => {
-                    axios.get("http://localhost:8080/api/v1/planet/getByName/" + name)
-                        .then((response) => setData(response.data));
-
-                    const element = getInfoBox(data)
+                    const element = <InfoBox name={name}/>
                     ReactDOM.render(element, document.getElementById("planetInfo"))
                 }}
             >
