@@ -19,7 +19,7 @@ export class InfoBox extends React.Component {
         return (
             <div>
                 {
-                    this.state.data ?<PlanetInfo data={this.state.data}/> : <LoadingBox/>
+                    this.state.data ? <PlanetInfo data={this.state.data}/> : <LoadingBox/>
                 }
             </div>
         );
@@ -27,7 +27,7 @@ export class InfoBox extends React.Component {
 }
 
 function PlanetInfo(data) {
-    
+
     return (<div id="text">
         <h1>{data.data.name} <svg
             onClick={(event => {
@@ -39,7 +39,9 @@ function PlanetInfo(data) {
             <line x1="50" y1="10" x2="10" y2="50" stroke="red" strokeWidth="6"/>
         </svg></h1>
         <h2>Mass: {data.data.mass}</h2>
-        <h2>Distance from the Sun: {data.data.distanceFromSun}</h2>
+        {
+            data.data.name === "Sun" ? "" : <h2>Distance from the Sun: {data.data.distanceFromSun}</h2>
+        }
         <h2>Info:</h2>
         {data.data.description}
     </div>);

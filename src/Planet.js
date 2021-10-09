@@ -28,7 +28,8 @@ export function Planet({position, size, rotationSpeed, speed, zRadius, textureNa
             <mesh
                 ref={ref}
                 onClick={async () => {
-                    const element = <InfoBox name={name}/>
+                    ReactDOM.render(<div></div>, document.getElementById("planetInfo"))
+                    let element = <InfoBox name={name}/>
                     ReactDOM.render(element, document.getElementById("planetInfo"))
                 }}
             >
