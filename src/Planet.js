@@ -34,7 +34,7 @@ export function Planet({position, size, rotationSpeed, speed, zRadius, textureNa
                 }}
             >
                 <Html distanceFactor={15}>
-                    <div id="annotation">{name}</div>
+                    <div id="annotation" class="noselect">{name}</div>
                 </Html>
                 <sphereGeometry args={[size, 32, 32]}/>
                 <meshStandardMaterial map={texture}/>
